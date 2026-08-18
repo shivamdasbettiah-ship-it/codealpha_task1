@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lumina - A high-performance, responsive visual gallery featuring dynamic layouts, interactive lightbox, category filters, and live photo effects.">
+  <title>Lumina | Next-Gen Visual Gallery</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Site Navigation Header -->
+  <header class="site-header">
+    <div class="container header-wrapper">
+      <a href="#" class="brand">
+        <div class="brand-icon">
+          <i class="fa-solid fa-shapes"></i>
+        </div>
+        <div class="brand-text">
+          <h1>LUMINA</h1>
+          <span>Visual Odyssey</span>
+        </div>
+      </a>
+
+      <div class="header-actions">
+        <div class="stat-chip">
+          <span class="dot"></span>
+          <span id="headerPhotoCount">24 Photos</span>
+        </div>
+
+        <!-- Sound FX Toggle -->
+        <button id="soundToggleBtn" class="icon-btn" title="Toggle Sound FX" aria-label="Toggle Sound Effects">
+          <i class="fa-solid fa-volume-high"></i>
+        </button>
+
+        <!-- Favorites Quick View Filter -->
+        <button id="favoritesFilterBtn" class="icon-btn" title="Show Liked Photos" aria-label="Show Liked Photos">
+          <i class="fa-solid fa-heart"></i>
+          <span id="favCounterBadge" class="badge-counter">0</span>
+        </button>
+
+        <!-- Theme Switcher -->
+        <button id="themeToggleBtn" class="icon-btn" title="Switch Theme (Dark/Light)" aria-label="Switch Theme">
+          <i class="fa-solid fa-moon"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="container">
+    
+    <!-- Hero Banner -->
+    <section class="hero-section">
+      <div class="hero-tag">
+        <i class="fa-solid fa-sparkles"></i> Curated Gallery 2026
+      </div>
+      <h2 class="hero-title">
+        Discover <span class="gradient-text">Extraordinary</span> Perspectives
+      </h2>
+      <p class="hero-subtitle">
+        Explore a curated collection of fine-art photography with real-time filters, customizable layouts, and immersive lightbox inspection.
+      </p>
+    </section>
+
+    <!-- Interactive Control Center -->
+    <section class="control-center" aria-label="Gallery Controls">
+      
+      <!-- Top Row: Search, Sort & Layout Switcher -->
+      <div class="search-controls-row">
+        <div class="search-box-wrapper">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input 
+            type="text" 
+            id="searchInput" 
+            class="search-input" 
+            placeholder="Search by title, location, tag, photographer..." 
+            autocomplete="off"
+            aria-label="Search photos"
+          >
+          <button id="searchClearBtn" class="search-clear-btn" title="Clear Search" aria-label="Clear Search">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="control-tools-right">
+          <!-- Sort Dropdown -->
+          <div class="sort-select-wrapper">
+            <i class="fa-solid fa-arrow-down-short-wide"></i>
+            <select id="sortSelect" class="sort-select" aria-label="Sort by">
+              <option value="featured">Featured Curations</option>
+              <option value="likes">Most Popular</option>
+              <option value="title-asc">Title (A - Z)</option>
+              <option value="title-desc">Title (Z - A)</option>
+              <option value="resolution">Highest Resolution</option>
+            </select>
+          </div>
+
+          <!-- Layout Switcher (Masonry, Uniform Grid, Dense Compact) -->
+          <div class="layout-switcher" role="group" aria-label="Layout Modes">
+            <button id="layoutMasonryBtn" class="layout-btn active" title="Masonry Dynamic View" data-layout="layout-masonry" aria-label="Masonry Layout">
+              <i class="fa-solid fa-columns"></i>
+            </button>
+            <button id="layoutGridBtn" class="layout-btn" title="Uniform Grid View" data-layout="layout-grid" aria-label="Grid Layout">
+              <i class="fa-solid fa-table-cells"></i>
+            </button>
+            <button id="layoutCompactBtn" class="layout-btn" title="Compact 4-Column View" data-layout="layout-compact" aria-label="Compact Layout">
+              <i class="fa-solid fa-table-cells-large"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Categories Pills Ribbon -->
+      <div class="categories-wrapper" id="categoriesContainer" role="tablist" aria-label="Categories">
+        <!-- Injected dynamically by app.js -->
+      </div>
+
+      <!-- Live CSS FX Filters Ribbon -->
+      <div class="filters-row">
+        <div class="filter-pills-label">
+          <i class="fa-solid fa-wand-magic-sparkles"></i> Visual FX Filters:
+        </div>
+        <div class="filter-pills" id="fxFiltersContainer">
+          <button class="fx-btn active" data-fx="fx-normal">Original</button>
+          <button class="fx-btn" data-fx="fx-vintage">Vintage 70s</button>
+          <button class="fx-btn" data-fx="fx-cyberpunk">Cyberpunk Glow</button>
+          <button class="fx-btn" data-fx="fx-warm">Golden Hour</button>
+          <button class="fx-btn" data-fx="fx-emerald">Emerald Mist</button>
+          <button class="fx-btn" data-fx="fx-mono">Cinematic Mono</button>
+          <button class="fx-btn" data-fx="fx-moody">Moody Dark</button>
+        </div>
+        <button id="resetFiltersBtn" class="reset-all-btn" title="Reset all filters">
+          <i class="fa-solid fa-rotate-left"></i> Reset
+        </button>
+      </div>
+
+    </section>
+
+    <!-- Results Status Bar -->
+    <div class="results-info-bar">
+      <div class="results-count" id="resultsCount">
+        Showing <strong>24</strong> of 24 photographs
+      </div>
+      <div id="activeFilterBadge" class="active-filter-badge" style="display: none;">
+        <span>Filter Active</span>
+      </div>
+    </div>
+
+    <!-- Gallery Grid -->
+    <div id="galleryGrid" class="gallery-grid layout-masonry" aria-live="polite">
+      <!-- Dynamic Image Cards injected by app.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" class="empty-state">
+      <div class="empty-icon">
+        <i class="fa-regular fa-image"></i>
+      </div>
+      <h3>No Visuals Found</h3>
+      <p>We couldn't find any photographs matching your current query or category filter.</p>
+      <button id="emptyResetBtn" class="btn-primary">
+        <i class="fa-solid fa-arrows-rotate"></i> Reset All Filters
+      </button>
+    </div>
+
+  </main>
+
+  <!-- =========================================================
+       IMMERSIVE LIGHTBOX MODAL
+       ========================================================= -->
+  <div id="lightboxModal" class="lightbox-modal" role="dialog" aria-modal="true" aria-hidden="true" tabindex="-1">
+    
+    <!-- Slideshow Auto-Play Progress Bar -->
+    <div id="slideshowProgressBar" class="slideshow-progress-bar"></div>
+
+    <!-- Lightbox Header Toolbar -->
+    <div class="lightbox-header">
+      <div class="lightbox-title-info">
+        <span id="lbCounter" class="lightbox-counter">01 / 24</span>
+        <div class="lightbox-titles">
+          <h3 id="lbTitle">Photograph Title</h3>
+          <span id="lbPhotographer">By Photographer</span>
+        </div>
+      </div>
+
+      <div class="lightbox-actions">
+        <!-- Slideshow Play/Pause -->
+        <button id="lbSlideshowBtn" class="lb-btn" title="Play Slideshow (Space)" aria-label="Toggle Slideshow">
+          <i class="fa-solid fa-play"></i>
+        </button>
+        <!-- Zoom Controls -->
+        <button id="lbZoomInBtn" class="lb-btn" title="Zoom In (+)" aria-label="Zoom In">
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </button>
+        <button id="lbZoomOutBtn" class="lb-btn" title="Zoom Out (-)" aria-label="Zoom Out">
+          <i class="fa-solid fa-magnifying-glass-minus"></i>
+        </button>
+        <button id="lbResetZoomBtn" class="lb-btn" title="Reset Zoom (0)" aria-label="Reset Zoom">
+          <i class="fa-solid fa-compress"></i>
+        </button>
+        <!-- Fullscreen -->
+        <button id="lbFullscreenBtn" class="lb-btn" title="Toggle Fullscreen (F)" aria-label="Toggle Fullscreen">
+          <i class="fa-solid fa-expand"></i>
+        </button>
+        <!-- EXIF Info Drawer Toggle -->
+        <button id="lbInfoToggleBtn" class="lb-btn" title="Photo Metadata & EXIF (I)" aria-label="Photo Info">
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
+        <!-- Favorite in Lightbox -->
+        <button id="lbFavoriteBtn" class="lb-btn" title="Favorite Photo" aria-label="Favorite Photo">
+          <i class="fa-regular fa-heart"></i>
+        </button>
+        <!-- Download Image -->
+        <button id="lbDownloadBtn" class="lb-btn" title="Download High-Res" aria-label="Download Photo">
+          <i class="fa-solid fa-arrow-down-to-bracket"></i>
+        </button>
+        <!-- Close Lightbox -->
+        <button id="lbCloseBtn" class="lb-btn close-btn" title="Close Lightbox (Esc)" aria-label="Close Lightbox">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Lightbox Stage -->
+    <div class="lightbox-body">
+      <!-- Previous Navigation Button -->
+      <button id="lbPrevBtn" class="lb-nav-btn prev-btn" title="Previous Image (Left Arrow)" aria-label="Previous Image">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <!-- Central Stage Canvas -->
+      <div id="lbStage" class="lightbox-stage">
+        <div id="lbImageWrapper" class="lightbox-image-wrapper">
+          <img id="lbMainImg" class="lightbox-main-img" src="" alt="Selected Lightbox Visual">
+        </div>
+      </div>
+
+      <!-- Next Navigation Button -->
+      <button id="lbNextBtn" class="lb-nav-btn next-btn" title="Next Image (Right Arrow)" aria-label="Next Image">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+      <!-- Side Metadata & EXIF Drawer -->
+      <aside id="lbInfoDrawer" class="lightbox-info-drawer" aria-label="Photo Metadata">
+        <div class="drawer-header">
+          <h4><i class="fa-solid fa-camera-retro"></i> Photo Details & EXIF</h4>
+          <button id="lbCloseDrawerBtn" class="lb-btn" title="Close Details" style="width:32px;height:32px;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <div class="drawer-body">
+          <h3 id="drawerTitle" style="font-size:1.2rem; margin-bottom: 0.4rem;">Title</h3>
+          <p id="drawerDesc" style="color:var(--text-secondary); font-size:0.9rem; line-height:1.6; margin-bottom:1.2rem;">
+            Description
+          </p>
+
+          <div style="padding:0.75rem; background:rgba(255,255,255,0.03); border:1px solid var(--border-subtle); border-radius:var(--radius-md); margin-bottom:1.5rem;">
+            <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase; font-family:var(--font-mono); margin-bottom:0.3rem;">Artist / Credit</div>
+            <div style="display:flex; align-items:center; justify-content:space-between;">
+              <span id="drawerAuthor" style="font-weight:700; font-size:0.95rem;">Author Name</span>
+              <a id="drawerAuthorLink" href="#" target="_blank" rel="noopener noreferrer" style="color:var(--accent-primary); font-size:0.8rem; text-decoration:none;">
+                Portfolio <i class="fa-solid fa-arrow-up-right-from-square"></i>
+              </a>
+            </div>
+          </div>
+
+          <div style="font-size:0.8rem; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; color:var(--text-muted);">
+            Camera Hardware & Exposure
+          </div>
+          <div class="exif-grid">
+            <div class="exif-item">
+              <div class="exif-label">Camera</div>
+              <div id="exifCamera" class="exif-value">Sony Alpha 7 IV</div>
+            </div>
+            <div class="exif-item">
+              <div class="exif-label">Lens</div>
+              <div id="exifLens" class="exif-value">24-70mm f/2.8 GM</div>
+            </div>
+            <div class="exif-item">
+              <div class="exif-label">Aperture</div>
+              <div id="exifAperture" class="exif-value">f/2.8</div>
+            </div>
+            <div class="exif-item">
+              <div class="exif-label">Shutter</div>
+              <div id="exifShutter" class="exif-value">1/500s</div>
+            </div>
+            <div class="exif-item">
+              <div class="exif-label">ISO</div>
+              <div id="exifIso" class="exif-value">ISO 100</div>
+            </div>
+            <div class="exif-item">
+              <div class="exif-label">Resolution</div>
+              <div id="exifResolution" class="exif-value">6000 × 4000</div>
+            </div>
+          </div>
+
+          <div style="margin-top:1.25rem;">
+            <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; margin-bottom:0.2rem;">Location</div>
+            <div id="drawerLocation" style="font-weight:600; color:var(--text-primary); font-size:0.9rem; display:flex; align-items:center; gap:0.4rem;">
+              <i class="fa-solid fa-location-dot" style="color:var(--accent-secondary);"></i> Kyoto, Japan
+            </div>
+          </div>
+
+          <div style="margin-top:1.5rem;">
+            <div style="font-size:0.75rem; color:var(--text-muted); font-family:var(--font-mono); text-transform:uppercase; margin-bottom:0.4rem;">Keywords & Tags</div>
+            <div class="tag-list" id="drawerTags">
+              <!-- Tags injected -->
+            </div>
+          </div>
+
+        </div>
+      </aside>
+    </div>
+
+    <!-- Lightbox Bottom Thumbnail Ribbon -->
+    <div class="lightbox-footer">
+      <div id="thumbnailRibbon" class="thumbnail-ribbon" role="tablist" aria-label="Thumbnail Navigation">
+        <!-- Thumbnails injected by app.js -->
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toastContainer" class="toast-container" aria-live="polite"></div>
+
+  <!-- Application Logic -->
+  <script src="app.js"></script>
+</body>
+</html>
